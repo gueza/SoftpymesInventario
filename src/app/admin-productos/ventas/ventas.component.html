@@ -1,0 +1,50 @@
+<div class="container-fluid px-4">
+  <h1>Venta de Productos</h1>
+
+  <div class="mb-4">
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col-md-4">
+          <label for="productoSelect" class="form-label">Producto:</label>
+          <select class="form-select" id="productoSelect" name="producto" formControlName="producto">
+            <option value="">Selecciona un producto...</option>
+            <option *ngFor="let product of producto" [value]="product.id">{{ product.pro_nombre }} - color: {{ product.pro_color }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="Cantidad">Cantidad:</label>
+          <input type="number" class="form-control" id="cantidad" formControlName="cantidad" min="0">
+        </div>
+      </div>
+      <button class="btn btn-success mt-3" (click)="agregar()" [disabled]="formulario.invalid">Agregar al carrito</button>
+    </form>
+  </div>
+  <div class="card mb-4" *ngIf="productosCarrito.length > 0">
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Color</th>
+            <th>Cantidad Requerida</th>
+            <th>Valor Unitario</th>
+            <th>Valor total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pro of productosCarrito">
+            <td>{{pro.pro_nombre}}</td>
+            <td>{{pro.pro_color}}</td>
+            <td>{{pro.cantidad_requerida}}</td>
+            <td>{{pro.pro_valor | currency}}</td>
+            <td>{{pro.valor_total | currency}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+      <h6>Total: {{totalPagar | currency}}</h6>
+      <button class="btn btn-success" (click)="facturar()">Generar Factura</button>
+    </div>
+  </div>
+
+</div>

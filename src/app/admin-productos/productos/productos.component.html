@@ -1,0 +1,59 @@
+<div class="container-fluid px-4">
+  <h1>Productos</h1>
+
+  <div class="mb-4">
+    <form [formGroup]="formulario">
+      <div class="row">
+        <div class="col form-group">
+          <label for="nombre">Nombre:</label>
+          <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        </div>
+        <div class="col form-group">
+          <label for="Color">Color:</label>
+          <input type="text" class="form-control" id="Color" formControlName="color">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col form-group">
+          <label for="Cantidad">Cantidad:</label>
+          <input type="number" class="form-control" id="Cantidad" formControlName="cantidad">
+        </div>
+        <div class="col form-group">
+          <label for="Valor">Valor:</label>
+          <input type="number" class="form-control" id="Valor" formControlName="valor">
+        </div>
+      </div>
+      <button class="btn btn-success mt-3" (click)="agregarProducto()" [disabled]="formulario.invalid" *ngIf="!editar">Guardar</button>
+      <button class="btn btn-warning mt-3 mr-2" (click)="actualizarProducto()" [disabled]="formulario.invalid" *ngIf="editar">Editar</button>
+      <button class="btn btn-secondary mt-3 ml-3" (click)="vaciarProducto()" [disabled]="formulario.invalid" *ngIf="editar">Cancelar</button>
+    </form>
+  </div>
+  <div class="card mb-4">
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Color</th>
+            <th>Cantidad</th>
+            <th>Valor</th>
+            <th>Opciones</th>
+            <th>Observación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pro of producto">
+            <td>{{pro.pro_nombre}}</td>
+            <td>{{pro.pro_color}}</td>
+            <td>{{pro.pro_cantidad}}</td>
+            <td>{{pro.pro_valor  | currency }}</td>
+            <td><button class="btn btn-secondary sm" (click)="editarProducto(pro)">Editar</button></td>
+            <td><small>{{ pro.pro_cantidad <= 10 ? 'Poca cantidad' : 'Ok' }}</small></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
